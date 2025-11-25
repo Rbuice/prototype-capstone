@@ -1,0 +1,12 @@
+{
+  "name": "Prototype Last Bastion",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.html",
+  "dependencies": {
+    "phaser": "^3.90.0"
+  },
+  "scripts": {
+    "start": "node ./src/main.js"
+  }
+}
