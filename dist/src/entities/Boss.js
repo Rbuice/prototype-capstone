@@ -90,6 +90,11 @@ export class Boss extends Phaser.GameObjects.Container {
     }
     damage(dam){
         this.#bosshp = this.#bosshp - dam;
+        if(this.#bosshp <= 0){
+            return true;
+        } else {
+            return false;
+        }
     }
     getShots(){
         return this.#shots;
@@ -114,6 +119,7 @@ export class Boss extends Phaser.GameObjects.Container {
         }
         if(this.#bosshp <= 0){
             this.destroy(true);
+            
         }
     }
 

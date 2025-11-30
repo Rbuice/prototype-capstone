@@ -49,7 +49,7 @@ export class Righttwo extends Phaser.Scene {
             if(player.getDamaged()){
 
             } else {
-                playerGameObject.damage();
+               this.dead = playerGameObject.damage();
             }
            
         });
@@ -59,5 +59,10 @@ export class Righttwo extends Phaser.Scene {
     this.cameras.main.once('camerafadeoutcomplete', () => {
         this.scene.start('Upone', {currhp: this.player.getHp()});
     });
-    } 
+    }
+    update(){
+        if(this.dead){
+            this.scene.start('Gameover');
+        }
+    }
 }

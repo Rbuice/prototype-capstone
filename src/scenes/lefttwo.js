@@ -5,6 +5,7 @@ import {Boss} from '../entities/Boss.js';
 export class Lefttwo extends Phaser.Scene {
     constructor() {
         super('Lefttwo');
+        
     }
 
     init(data) {
@@ -30,17 +31,17 @@ export class Lefttwo extends Phaser.Scene {
         this.player = player;
         this.physics.add.collider(player, rooftop);
         rooftop.create(600, 660, 'rooftop').setScale(4).refreshBody();
-        const boss = new Boss(this, player);
+        const boss = new Boss(this, player); 
         this.physics.add.collider(boss, rooftop);
         this.physics.add.overlap(boss, player.getShots(), (frogGameObject, shotGameObject) => {
-            frogGameObject.damage(1);
+            this.bossdead = frogGameObject.damage(1);
             shotGameObject.destroy(true);
         });
         this.physics.add.overlap(player, boss, (playerGameObject, frogGameObject) => {
             if(player.getDamaged()){
 
             } else {
-                playerGameObject.damage();
+                this.dead = playerGameObject.damage();
             }
            
         });
@@ -48,10 +49,19 @@ export class Lefttwo extends Phaser.Scene {
             if(player.getDamaged()){
 
             } else {
-                playerGameObject.damage();
+                this.dead = playerGameObject.damage();
             }
            
         });
+    }
+    update(){
+        if(this.bossdead){
+            this.scene.start('Win');
+        }
+        
+        if(this.dead){
+            this.scene.start('Gameover');
+        }
     }
 
 }

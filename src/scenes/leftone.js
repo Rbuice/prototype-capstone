@@ -40,7 +40,7 @@ export class Leftone extends Phaser.Scene {
             if(player.getDamaged()){
 
             } else {
-                playerGameObject.damage();
+                this.dead = playerGameObject.damage();
             }
            
         });
@@ -53,5 +53,10 @@ export class Leftone extends Phaser.Scene {
     this.cameras.main.once('camerafadeoutcomplete', () => {
         this.scene.start('Lefttwo', {currhp: this.player.getHp()});
     });
-    } 
+    }
+    update(){
+        if(this.dead){
+            this.scene.start('Gameover');
+        }
+    }
 }

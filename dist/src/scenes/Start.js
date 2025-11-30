@@ -25,29 +25,10 @@ export class Start extends Phaser.Scene {
         this.changezone = this.add.zone(1200, 100, 32, 500).setOrigin(0);
         this.physics.world.enable(this.changezone, Phaser.Physics.Arcade.STATIC_BODY);
         this.physics.add.overlap(player, this.changezone, this.onZoneOverlap, null, this);
-        //const boss = new Boss(this, player);
-        //this.physics.add.collider(boss, rooftop);
-        /*const frog = new Frog(this);
-        this.physics.add.collider(frog, rooftop);
-        
-        this.physics.add.overlap(frog, player.getShots(), (frogGameObject, shotGameObject) => {
-            frogGameObject.damage(1);
-            shotGameObject.destroy(true);
-        });
-        this.physics.add.overlap(player, frog, (playerGameObject, frogGameObject) => {
-            if(player.getDamaged()){
-
-            } else {
-                playerGameObject.damage();
-            }
-           
-        });
-        */
     }
     onZoneOverlap(player, zone) {
     this.cameras.main.fadeOut(500, 0, 0, 0);
     this.cameras.main.once('camerafadeoutcomplete', () => {
-        //this.scene.start('Rightone', {currhp: this.player.getHp()});
         this.scene.start('Rightone', {currhp: this.player.getHp()});
     });
     }

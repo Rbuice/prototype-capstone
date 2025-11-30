@@ -47,6 +47,11 @@ export class Player extends Phaser.GameObjects.Container{
         this.#playerhp = this.#playerhp - 1;
         this.body.setVelocityX(-160);
         this.body.setVelocityY(-360);
+        if(this.#playerhp <= 0){
+            return true;
+        } else {
+            return false;
+        }
     }
     getShots(){
         return this.#shots;
