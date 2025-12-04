@@ -11,14 +11,39 @@ export class Player extends Phaser.GameObjects.Container{
     #playdirection;
     #shots;
     #currtime;
+    
     constructor(scene, x, y){
-        super(scene,  x,  y, []);
+        super(scene,  x,  y-10, []);
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        this.body.setSize(32,32);
-        this.body.setOffset(-16,-16);
+        this.body.setSize(32,48);
+        this.body.setOffset(-16,-24);
         this.body.setGravityY(500);
-        this.#playersprite = scene.add.sprite(0, 0, 'player', 0);
+        this.#playersprite = scene.add.sprite(0, 0, 'dude', 0);
+        this.scene.anims.create({
+            key: 'left',
+            frames: this.scene.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        this.scene.anims.create({
+            key: 'leftlook',
+            frames: [ { key: 'dude', frame: 0 } ],
+            frameRate: 20
+        });
+        this.scene.anims.create({
+            key: 'rightlook',
+            frames: [ { key: 'dude', frame: 5 } ],
+            frameRate: 20
+        });
+
+        this.scene.anims.create({
+            key: 'right',
+            frames: this.scene.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+            frameRate: 10,
+            repeat: -1
+        });
         this.add([this.#playersprite]);
         this.#moveinput = scene.input.keyboard.createCursorKeys();
         this.#playermax = 3;
@@ -38,6 +63,7 @@ export class Player extends Phaser.GameObjects.Container{
             this.scene.events.off(Phaser.Scenes.Events.UPDATE, this.update, this);
         })
     }
+    
     getDamaged(){
         return this.#damaged;
     }
@@ -70,13 +96,21 @@ export class Player extends Phaser.GameObjects.Container{
         if(left.isDown){
             this.body.setVelocityX(-360);
             this.#playdirection = -1;
+            this.#playersprite.anims.play('left', true);
         }
         else if(right.isDown){
             this.body.setVelocityX(360);
             this.#playdirection = 1;
+            this.#playersprite.anims.play('right', true);
         }
         else if(this.#damaged === false) {
             this.body.setVelocityX(0);
+            if(this.#playdirection === -1){
+                this.#playersprite.anims.play('leftlook');
+            } else {
+                this.#playersprite.anims.play('rightlook');
+            }
+            
         }
         if(time > this.#lastdamage){
             this.#damaged = false;
