@@ -17,6 +17,7 @@ export class Leftone extends Phaser.Scene {
         this.load.image('frog', 'assets/frog.png');
         this.load.image('player', 'assets/Square.png');
         this.load.image('shot', 'assets/bomb.png');
+        this.load.spritesheet('dude', 'assets/dude.png', {frameWidth: 32, frameHeight: 48});
     }
 
     create() {

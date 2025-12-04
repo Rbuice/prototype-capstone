@@ -20,6 +20,7 @@ export class Lefttwo extends Phaser.Scene {
         this.load.image('player', 'assets/Square.png');
         this.load.image('shot', 'assets/bomb.png');
         this.load.image('boss', 'assets/Boss.png');
+        this.load.spritesheet('dude', 'assets/dude.png', {frameWidth: 32, frameHeight: 48});
     }
 
     create() {
